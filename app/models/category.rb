@@ -1,3 +1,3 @@
-class Category < ActiveModel::Base
+class Category < ActiveRecord::Base
 
 end
