@@ -1,0 +1,12 @@
+<p>
+  <!-- Rails assumes that there is a partial in views/categories/_category.html.erb and renders it for each category found.  Essentially an @post.categories.each -->
+  <%= render @post.categories %>  
+</p>
+
+<%= render 'shared/content_title', title: @post.title %>
+
+<p>
+  <%= @post.description %>
+</p>
+
+<hr/>
