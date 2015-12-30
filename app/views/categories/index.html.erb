@@ -1,0 +1,9 @@
+<%= render 'shared/content_title', title: "All Categories" %>
+
+<% @categories.each do |category| %>
+  <div class="row">
+    <div class='span8 well'>
+      <h4><%= link_to category.name %></h4> <!-- #TODO Add link to posts with matching category.  -->
+    </div>
+  </div>
+<% end %>

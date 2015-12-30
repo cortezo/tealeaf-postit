@@ -1,0 +1,9 @@
+<% header = link_to("All Posts", posts_path) + "  &raquo; #{@category.name}".html_safe %>
+
+<!-- .html_safe on next line tells rails not to escape all HTLM code in a string by default.  This is a security
+feature and by skipping it, we're in effect certifying that our code is safe to be viewed as HTML. -->
+<%= render 'shared/content_title', title: header %>
+
+<% @category.posts.each do |post| %>
+  <%= render 'posts/post', post: post %>
+<% end %>
