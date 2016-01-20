@@ -1,0 +1,9 @@
+<div class="well span8">
+  <em><%= comment.body %></em>
+  <br/>
+  <br/>
+  <p>
+    <span class='quiet'>posted by</span> <%= @post.creator.username %>
+    <small>at <%= @post.created_at %></small>
+  </p>
+</div>
