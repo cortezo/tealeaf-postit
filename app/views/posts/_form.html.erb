@@ -1,6 +1,5 @@
-<% if @post.errors.any? %>
-  <%= render 'shared/errors', object: @post %>
-<% end %>
+<%= render 'shared/errors', object: @post %>
+
 
 <div class="well">
   <%= form_for @post do |f| %>
