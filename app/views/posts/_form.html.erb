@@ -17,7 +17,7 @@
     </div>
     <div class="control-group well">
       <%= f.collection_check_boxes(:category_ids, Category.all, :id, :name, {item_wrapper_class: "inline"}, {}) do |b| %>
-        <%= b.label(class: "checkbox-inline") { b.check_box + " " + b.text } %>
+        <%= b.label(class: "checkbox inline") { b.check_box + " " + b.text } %>
       <% end %>
     </div>
     <%= f.submit(@post.new_record? ? 'Create Post' : 'Update Post', class: "btn btn-primary") %>

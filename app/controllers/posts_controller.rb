@@ -16,7 +16,6 @@ class PostsController < ApplicationController
   end
 
   def create
-    binding.pry
     @post = Post.new(post_params)
     @post.creator = User.first # TEMPORARILY HARD CODED ToDo:  Change once we have authentication
 
@@ -49,7 +48,7 @@ class PostsController < ApplicationController
     if false  # user.admin?  --- User must be an admin (requires an admin? function that returns t/f)
          params.require(:post).permit!   # Would permit all attributes to be mass-assigned
     else
-         params.require(:post).permit(:title, :url, :description, category_ids:[])
+         params.require(:post).permit(:title, :url, :description, category_ids: [])
     end
   end
 end
