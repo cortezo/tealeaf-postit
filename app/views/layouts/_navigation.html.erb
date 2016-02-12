@@ -2,28 +2,41 @@
   <li>
     <%= link_to "Postit!", root_path, :class => 'brand' %>
   </li>
-  <li>
-    <%= link_to 'link', '' %>
-  </li>
 </ul>
+
 <div class="nav_item btn-group">
-  <%= link_to '#', class: 'btn btn-small dropdown-toggle', 'data-toggle' => 'dropdown' do %>
+  <%= link_to '#', class: 'btn dropdown-toggle btn-warning', 'data-toggle' => 'dropdown' do %>
     Categories <span class="caret"></span>
   <% end %>
   <ul class="dropdown-menu">
     <% Category.all.sort{|a,b| a.name <=> b.name }.each do |category| %>
       <li><%= link_to category.name, category_path(category) %>
     <% end %>
-    <li role="separator" class="divider"></li>
-    <li>
-      <%= link_to(new_category_path) do %>
-        <i class="icon-plus"></i>
-        New Category
-      <% end %>
-    </li>
+    <% if logged_in? %> <!-- Hide New Category button if not logged in -->
+      <li role="separator" class="divider"></li>
+      <li>
+        <%= link_to(new_category_path) do %>
+          <i class="icon-plus"></i>
+          New Category
+        <% end %>
+      </li>
+    <% end %>
   </ul>
 </div>
-<div class="nav_item">
-  <%= link_to 'New Post', new_post_path, class: "btn btn-success btn-small" %>
-</div>
 
+<% if logged_in? %>  <!-- Hide New Post button if not logged in -->
+  <div class="nav_item">
+    <%= link_to 'New Post', new_post_path, class: "btn btn-success" %>
+  </div>
+  <div class="nav_item">
+    <%= link_to 'logout', logout_path, class: "btn btn-primary" %>
+  </div>
+    <p class="navbar-text pull-right">Logged in as: <%= current_user.username %></p>
+<% else %>
+  <div class="nav_item">
+    <%= link_to 'login', login_path, class: 'btn btn-primary' %>
+  </div>
+  <div class="nav_item">
+    <%= link_to 'register', register_path, class: 'btn btn-success' %>
+  </div>
+<% end %>

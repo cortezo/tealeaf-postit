@@ -1,6 +1,8 @@
-<p class="pull-right">
-  <%= link_to 'edit this post', edit_post_path(@post) %>
-</p>
+<% if logged_in? %>
+  <p class="pull-right">
+    <%= link_to 'edit this post', edit_post_path(@post) %>
+  </p>
+<% end %>
 
 <p>
   <!-- Rails assumes that there is a partial in views/categories/_category.html.erb and renders it for each category found.  Essentially an @post.categories.each -->
@@ -15,23 +17,27 @@
 
 <hr/>
 
-<p>
-<%= form_for [@post, @comment] do |f| %>
-  <%= render 'shared/errors', object: @comment %>
+<% if logged_in? %>
+  <p>
+  <%= form_for [@post, @comment] do |f| %>
+    <%= render 'shared/errors', object: @comment %>
 
-  <div class='control-group'>
-    <%= f.label :body, "Make a comment" %>
-    <%= f.text_area :body, rows: 4 %>
-  </div>
-  <br/>
-  <%= f.submit "Create comment", class: "btn btn-primary" %>
+    <div class='control-group'>
+      <%= f.label :body, "Make a comment" %>
+      <%= f.text_area :body, rows: 4 %>
+    </div>
+    <br/>
+    <%= f.submit "Create comment", class: "btn btn-primary" %>
+  <% end %>
+  </p>
 <% end %>
-</p>
 
 <br/>
 
-<h4>Comments:</h4>
+<% if !@post.comments.empty? %>
+  <h4>Comments:</h4>
 
-<p>
-  <%= render @post.comments %>
-</p>
+  <p>
+    <%= render @post.comments %>
+  </p>
+<% end %>
