@@ -28,7 +28,12 @@ class PostsController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    if @post.creator != current_user
+      flash[:warning] = "You cannot edit this post because you didn't create it."
+      redirect_to post_path(@post)
+    end
+  end
 
   def update
     if @post.update(post_params)
