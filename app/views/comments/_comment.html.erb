@@ -1,9 +1,13 @@
 <div class="well span8">
-  <em><%= comment.body %></em>
+  <em>"<%= comment.body %>"</em> 
+  <% if post %>
+    on
+    <%= link_to post.title, post_path(post) %>
+  <% end %>
   <br/>
   <br/>
   <p>
-    <span class='quiet'>posted by</span> <%= @post.creator.username %>
-    <small>at <%= fix_date_time_format(@post.created_at) %></small>
+    <span class='quiet'>by</span> <%= comment.creator.username %>
+    <small>at <%= fix_date_time_format(comment.created_at) %></small>
   </p>
 </div>
