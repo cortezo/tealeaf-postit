@@ -1,9 +1,8 @@
 class UsersController < ApplicationController
-
-  before_action :require_user, only: [:edit, :update]
+  before_action :set_user, only: [:show, :edit, :update]
+  before_action :require_same_user, only: [:edit, :update]
 
   def show
-    @user = User.find(params[:id])
   end
 
   def create
@@ -24,14 +23,10 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = current_user
   end
 
   def update
-    @user = current_user
-    @user.update(user_params)
-
-    if @user.save
+    if @user.update(user_params)
       flash[:notice] = "Account successfully updated."
       redirect_to root_path
     else
@@ -43,6 +38,17 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:username, :password)
+  end
+
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  def require_same_user
+    if current_user != @user
+      flash[:error] = "You're not allowed to do that"
+      redirect_to root_path
+    end
   end
 
 end

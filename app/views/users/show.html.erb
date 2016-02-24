@@ -1,10 +1,12 @@
 <%= render '/shared/content_title', title: "Profile: #{@user.username}" %>
 
 <div class="well">
-  <div>
-    <p><strong>Username:</strong> &nbsp;&nbsp;&nbsp; <%= @user.username %></p>
-    <p><strong>Time zone:</strong> &nbsp;&nbsp;&nbsp; </p> <!-- Still needs timezone! -->
-  </div>
+  <dl class='dl-horizontal'>
+    <dt>Username:</dt>
+    <dd><%= @user.username %></dd>
+    <dt>Timezone:</dt>
+    <dd></dd>
+  </dl>
 </div>
 
 <div>
@@ -12,19 +14,33 @@
 </div>
 
 <ul class="nav nav-tabs">
-  <li class="active"><a data-toggle="tab" href="#posts">Posts(<%= @user.posts.count %>)</a>
-  <li><a data-toggle="tab" href="#comments">Comments(<%= @user.comments.count %>)</a></li>
+  <li class="<%= "active" if params[:tab].nil? %>">
+    <%= link_to "Posts (#{@user.posts.count})", user_path(@user) %>
+  </li>
+  <li class="<%= "active" if params[:tab] == "comments" %>">
+    <%= link_to "Comments (#{@user.comments.count})", user_path(@user, tab: 'comments') %>
+  </li>
 </ul>
 
+
+    <% if params[:tab].nil? %>
+      <% @user.posts.each do |p| %>
+        <%= render '/posts/post', post: p %>
+      <% end %>
+    <% elsif params[:tab] == 'comments' %>
+      <% @user.comments.each do |c| %>
+        <%= render '/comments/comment', comment: c, show_post: true %>
+      <% end %>
+    <% end %>
+
+
+<!--
 <div class="tab-content">
   <div id="posts" class="tab-pane fade in active">
-    <% @user.posts.each do |p| %>
-      <%= render '/posts/post', post: p %>
-    <% end %>
+    
   </div>
   <div id="comments" class="tab-pane fade">
-    <% @user.comments.each do |c| %>
-      <%= render '/comments/comment', comment: c, post: Post.find(c.post_id) %>
-    <% end %>
+    
   </div>
 </div>
+-->
