@@ -1,6 +1,6 @@
 <%= render 'shared/content_title', title: "All Posts" %>
 
-<% @posts.sort {|x,y| y.created_at <=> x.created_at }.each do |post| %>
+<% @posts.each do |post| %>
   <%= render 'post', post: post %>
 <% end %>
 
