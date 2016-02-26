@@ -3,7 +3,7 @@ class PostsController < ApplicationController
   before_action :require_user, except: [:index, :show]
 
   def index
-    @posts = Post.all.sort {|a,b| b.total_votes <=> a.total_votes }[0, 25]
+    @posts = Post.all.sort {|a,b| b.total_votes <=> a.total_votes }[0, 15]
   end
 
   def show
@@ -50,7 +50,7 @@ class PostsController < ApplicationController
     if @vote.valid?
       flash[:notice] = "Your vote was counted."
     else
-      flash[:error] = "You can only vote once."
+      flash[:error] = "You can only vote once per post."
     end
 
     redirect_to :back
