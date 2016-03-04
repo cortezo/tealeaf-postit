@@ -39,7 +39,7 @@
 
   <p>
     <% @post.comments.each do |c| %>
-      <%= render c unless c.new_record? %>
+      <%= render c, comment: c unless c.new_record? %>
     <% end %>
   </p>
 <% end %>

@@ -2,17 +2,17 @@
   <div class='span0 well text-center'>
     <div>
       <% if logged_in? %>
-        <%= link_to vote_post_path(post, vote: true), method: "post" do %>
+        <%= link_to vote_post_path(post, vote: true), method: "post", remote: true do %>
           <i class="icon-arrow-up"></i>
         <% end %>
       <% end %>
     </div>
     <div>
-      <%= post.total_votes %> Votes
+      <span id='post_<%= post.id %>_vote'><%= post.total_votes %></span>
     </div>
     <div>
       <% if logged_in? %>
-        <%= link_to vote_post_path(post, vote: false), method: "post" do %>
+        <%= link_to vote_post_path(post, vote: false), method: "post", remote: true do %>
           <i class="icon-arrow-down"></i>
         <% end %>
       <% end %>

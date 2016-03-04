@@ -53,7 +53,10 @@ class PostsController < ApplicationController
       flash[:error] = "You can only vote once per post."
     end
 
-    redirect_to :back
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.js
+    end
   end
 
   private
