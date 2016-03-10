@@ -8,6 +8,6 @@ module ApplicationHelper
   end
 
   def fix_date_time_format(date_time)
-    date_time.localtime.strftime("%l:%M%P %Z on %-m/%e/%Y")
+    date_time.strftime("%l:%M%P %Z on %-m/%e/%Y")
   end
 end
