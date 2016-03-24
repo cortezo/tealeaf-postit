@@ -34,11 +34,11 @@
 
 <br/>
 
-<% if @post.comments %>
+<% if @post.comments.count > 0 %>
   <h4>Comments:</h4>
 
   <p>
-    <% @post.comments.each do |c| %>
+    <% @post_comments.each do |c| %>
       <%= render c, comment: c unless c.new_record? %>
     <% end %>
   </p>

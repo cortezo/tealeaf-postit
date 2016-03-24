@@ -4,6 +4,6 @@
 feature and by skipping it, we're in effect certifying that our code is safe to be viewed as HTML. -->
 <%= render 'shared/content_title', title: header %>
 
-<% @category.posts.each do |post| %>
+<% @category_posts.each do |post| %>
   <%= render 'posts/post', post: post %>
 <% end %>

@@ -6,6 +6,7 @@ class CategoriesController < ApplicationController
   #end
 
   def show
+    @category_posts = @category.posts.sort {|a,b| b.total_votes <=> a.total_votes }
   end
 
   def new

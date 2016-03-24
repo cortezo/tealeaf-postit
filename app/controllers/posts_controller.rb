@@ -3,12 +3,11 @@ class PostsController < ApplicationController
   before_action :require_user, except: [:index, :show]
 
   def index
-    @posts = Post.all.sort {|a,b| b.total_votes <=> a.total_votes }[0, 15]
+    @posts = Post.all.sort {|a,b| b.total_votes <=> a.total_votes }#[0, 15]   # Uncomment to limit results to 15.
   end
 
   def show
-    @post = Post.find(params[:id])
-    @comments = @post.comments.sort {|a,b| b.total_votes <=> a.total_votes}[0, 25]
+    @post_comments = @post.comments.sort {|a,b| b.total_votes <=> a.total_votes}[0, 25]
     @comment = Comment.new
   end
 
@@ -64,7 +63,7 @@ class PostsController < ApplicationController
   private
 
   def set_post
-    @post = Post.find(params[:id])
+    @post = Post.find_by(slug: params[:id])
   end
 
   def post_params

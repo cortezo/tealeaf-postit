@@ -6,6 +6,8 @@ class Post < ActiveRecord::Base
   has_many :categories, through: :post_categories
   has_many :votes, as: :voteable
 
+  before_save :generate_slug
+
   validates :title, presence: true, length: {minimum: 5}
   validates :description, presence: true
   validates :url, presence: true, uniqueness: true
@@ -20,5 +22,19 @@ class Post < ActiveRecord::Base
 
   def down_votes
     self.votes.where(vote: false).size
+  end
+
+  def generate_slug
+    slug = self.title[0, 50].rstrip.gsub(/\s/, "_").gsub(/\W/, "").gsub("_", "-").downcase
+    count = Post.all.select{ |post| post.slug.include?(slug)}.count
+    if count == 0
+      self.slug = slug
+    else
+      self.slug = slug + "-" + (count).to_s
+    end
+  end
+
+  def to_param
+    self.slug
   end
 end
