@@ -9,7 +9,7 @@
       <% end %>
     </div>
     <div>
-      <span id='post_<%= comment.post.id %>_comment_<%= comment.id %>_vote'><%= comment.total_votes %></span>
+      <span id='post_<%= comment.post.slug %>_comment_<%= comment.id %>_vote'><%= comment.total_votes %></span>
     </div>
     <div>
       <% if logged_in? %>

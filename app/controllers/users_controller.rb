@@ -3,6 +3,8 @@ class UsersController < ApplicationController
   before_action :require_same_user, only: [:edit, :update]
 
   def show
+    @posts = @user.posts.sort {|a,b| b.total_votes <=> a.total_votes}[0, 25]
+    @comments = @user.comments.sort {|a,b| b.total_votes <=> a.total_votes}[0, 25]
   end
 
   def create
@@ -41,7 +43,7 @@ class UsersController < ApplicationController
   end
 
   def set_user
-    @user = User.find(params[:id])
+    @user = User.find_by(slug: params[:id])
   end
 
   def require_same_user

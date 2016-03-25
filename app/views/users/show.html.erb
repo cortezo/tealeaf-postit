@@ -24,11 +24,11 @@
 
 
     <% if params[:tab].nil? %>
-      <% @user.posts.each do |p| %>
+      <% @posts.each do |p| %>
         <%= render '/posts/post', post: p %>
       <% end %>
     <% elsif params[:tab] == 'comments' %>
-      <% @user.comments.each do |c| %>
+      <% @comments.each do |c| %>
         <%= render '/comments/comment', comment: c, show_post: true %>
       <% end %>
     <% end %>

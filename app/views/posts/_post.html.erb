@@ -8,7 +8,7 @@
       <% end %>
     </div>
     <div>
-      <span id='post_<%= post.id %>_vote'><%= post.total_votes %></span>
+      <span id='post_<%= post.slug %>_vote'><%= post.total_votes %></span>
     </div>
     <div>
       <% if logged_in? %>
