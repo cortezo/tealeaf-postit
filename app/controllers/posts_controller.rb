@@ -4,6 +4,7 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.all.sort {|a,b| b.total_votes <=> a.total_votes }#[0, 15]   # Uncomment to limit results to 15.
+    @posts.sort!{|a,b| b.created_at <=> a.created_at }
   end
 
   def show

@@ -7,7 +7,7 @@ class Category < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true, length: {maximum: 20}, format: { with: /\A[a-zA-Z0-9\s{1}]+\Z/}
 
   def generate_slug
-    self.slug = self.name.gsub(/\s+/, "-").downcase
+    self.slug = self.name.strip.gsub(/\s+/, "-").downcase
   end
 
   def to_param
