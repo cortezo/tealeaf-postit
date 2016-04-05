@@ -12,7 +12,7 @@
     <% Category.all.sort{|a,b| a.name <=> b.name }.each do |category| %>
       <li><%= link_to category.name, category_path(category) %>
     <% end %>
-    <% if logged_in? %> <!-- Hide New Category button if not logged in -->
+    <% if logged_in? and current_user.admin? %> <!-- Hide New Category button if not logged in -->
       <li role="separator" class="divider"></li>
       <li>
         <%= link_to(new_category_path) do %>

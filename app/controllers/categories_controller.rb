@@ -1,6 +1,6 @@
 class CategoriesController < ApplicationController
   before_action :set_category, only: [:show]
-  before_action :require_user, except: [:show]
+  before_action :require_admin, except: [:show]
   
   #def index
   #end
