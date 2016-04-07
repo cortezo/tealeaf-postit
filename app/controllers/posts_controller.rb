@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :vote]
   before_action :require_user, except: [:index, :show]
+  before_action :require_creator, only: [:edit, :update]
 
   def index
     @posts = Post.all.sort {|a,b| b.total_votes <=> a.total_votes }#[0, 15]   # Uncomment to limit results to 15.
@@ -29,10 +30,7 @@ class PostsController < ApplicationController
   end
 
   def edit
-    if @post.creator != current_user
-      flash[:warning] = "You cannot edit this post because you didn't create it."
-      redirect_to post_path(@post)
-    end
+
   end
 
   def update
@@ -73,5 +71,9 @@ class PostsController < ApplicationController
     else
          params.require(:post).permit(:title, :url, :description, category_ids: [])
     end
+  end
+
+  def require_creator
+    access_denied unless logged_in? and (@post.creator == current_user or current_user.admin?)
   end
 end

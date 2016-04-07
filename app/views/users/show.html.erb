@@ -5,6 +5,7 @@
     <dt>Username:</dt>
     <dd><%= @user.username %></dd>
     <dt>Timezone:</dt>
+    <dd><%= @user.timezone %></dd>
     <dd></dd>
   </dl>
 </div>
@@ -23,15 +24,15 @@
 </ul>
 
 
-    <% if params[:tab].nil? %>
-      <% @posts.each do |p| %>
-        <%= render '/posts/post', post: p %>
-      <% end %>
-    <% elsif params[:tab] == 'comments' %>
-      <% @comments.each do |c| %>
-        <%= render '/comments/comment', comment: c, show_post: true %>
-      <% end %>
-    <% end %>
+<% if params[:tab].nil? %>
+  <% @posts.each do |p| %>
+    <%= render '/posts/post', post: p %>
+  <% end %>
+<% elsif params[:tab] == 'comments' %>
+  <% @comments.each do |c| %>
+    <%= render '/comments/comment', comment: c, show_post: true %>
+  <% end %>
+<% end %>
 
 
 <!--

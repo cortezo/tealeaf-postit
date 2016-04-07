@@ -5,6 +5,14 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user, :logged_in?, :require_admin
 
+  # before_action :set_time_zone
+
+  # def set_time_zone
+  #   if logged_in?
+  #     Time.zone = current_user.timezone
+  #   end
+  # end
+
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
