@@ -30,6 +30,9 @@
       <span>
         <%= link_to("#{post.comments.size} comments", post_path(post)) %>
       </span>
+      <span>
+        <%= "Score: #{post.score}" %>
+      </span>
     </small>
   </div>
 </div>

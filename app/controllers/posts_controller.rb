@@ -1,16 +1,31 @@
 class PostsController < ApplicationController
+  PER_PAGE = 5
+
   before_action :set_post, only: [:show, :edit, :update, :vote]
   before_action :require_user, except: [:index, :show]
   before_action :require_creator, only: [:edit, :update]
 
   def index
-    @posts = Post.all.sort {|a,b| b.total_votes <=> a.total_votes }#[0, 15]   # Uncomment to limit results to 15.
-    @posts.sort!{|a,b| b.created_at <=> a.created_at }
+    Post.update_all_scores  #For a larger app... make this a timed task or find some other way to regularly update the score to drop old or unpopular items off the list
+    @posts = Post.order(score: :desc).limit(PER_PAGE).offset(params[:offset])
+    @pages = (Post.all.count.to_f / PER_PAGE).ceil
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @posts }
+      format.xml { render xml: @posts }
+    end
   end
 
   def show
     @post_comments = @post.comments.sort {|a,b| b.total_votes <=> a.total_votes}[0, 25]
     @comment = Comment.new
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @post }
+      format.xml { render xml: @post }
+    end
   end
 
   def new
